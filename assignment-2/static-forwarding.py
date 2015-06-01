@@ -1,7 +1,8 @@
 #!/usr/bin/python
 
 " Assignment 2 - static-forwarding.py - \
-    First part of the assignment. This is to create a static-forwarding table."
+    First part of the assignment. This is to create a static-forwarding table. \
+ student: Ngoc (Amy) Tran - Assignment 2 - Part 1- static switching "
 
 
 from pyretic.lib.corelib import *
@@ -26,7 +27,36 @@ class StaticSwitch(Policy):
 
         # TODO: set up forwarding tables. Create this however you wish. As
         # a suggestion, using a list of tuples will work.
-        
+        # Create the static forwarding table
+        #self.forward_table_list = []
+        self.forward_table = []
+        # Create table with switchnum, macaddr, and switchport
+        # use append to add item to the list
+        # The list for Switch A = S1
+        self.forward_table.append((1, 1, "00:00:00:00:00:01"))
+        self.forward_table.append((1, 2, "00:00:00:00:00:02"))
+        # between the switches
+        self.forward_table.append((1, 3, "00:00:00:00:00:03"))
+        self.forward_table.append((1, 3, "00:00:00:00:00:04"))
+        # The list for Switch B = S2
+        self.forward_table.append((2, 3, "00:00:00:00:00:01"))
+        self.forward_table.append((2, 3, "00:00:00:00:00:02"))
+        # S2 connected to H3 and H4
+        self.forward_table.append((2, 1, "00:00:00:00:00:03"))
+        self.forward_table.append((2, 2, "00:00:00:00:00:04"))
+
+        # Create log file switches table for grading
+        self.logfile_static_fw_tables()
+
+    def logfile_static_fw_tables(self):
+        # TODO: Create log file "static-forwarding.log"
+        open_log("static-forwarding.log")
+        for tb_item in self.forward_table:
+            write_forwarding_entry(tb_item[0], tb_item[1], tb_item[2])
+        # close log file
+        finish_log()
+        print "** finished the log file"
+
 
     def build_policy(self):
         """ 
@@ -38,9 +68,21 @@ class StaticSwitch(Policy):
         # TODO: Rework below based on how you created your forwarding tables.
         
         subpolicies = []
-        
-        subpolicies.append(match(switch=1, dstmac="00:00:00:00:00:01") >> fwd(3))
+        # switch_1 port 1 & 2 connected to h1 and h2
+        subpolicies.append(match(switch=1, dstmac="00:00:00:00:00:01") >> fwd(1))
         subpolicies.append(match(switch=1, dstmac="00:00:00:00:00:02") >> fwd(2))
+        # between the switches 1 & 2
+        subpolicies.append(match(switch=1, dstmac="00:00:00:00:00:03") >> fwd(3))
+        subpolicies.append(match(switch=1, dstmac="00:00:00:00:00:04") >> fwd(3))
+         # switch_2 h3 and h4
+        subpolicies.append(match(switch=2, dstmac="00:00:00:00:00:03") >> fwd(1))
+        subpolicies.append(match(switch=2, dstmac="00:00:00:00:00:04") >> fwd(2))
+        # between the switches 2 & 1
+        subpolicies.append(match(switch=2, dstmac="00:00:00:00:00:01") >> fwd(3))
+        subpolicies.append(match(switch=2, dstmac="00:00:00:00:00:02") >> fwd(3))
+        ## Completed the forwarding table policies
+
+
         # NOTE: this will flood for MAC broadcasts (to ff:ff:ff:ff:ff:ff).
         # You will need to include something like this in order for ARPs to 
         # propogate. xfwd() is like fwd(), but will not forward out a port a 
