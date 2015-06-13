@@ -1,0 +1,12 @@
+1) To test each topo
+----------------------
+python run_topo.py topo1 topo1.txt
+python run_topo.py topo2 topo2.txt
+
+2) To run all toops by unittests
+------------------------------
+copy all files in unit_tests folder to the 
+directory hasNode.py, helpers.py, and init.py files and execute:
+
+python -m unittest discover
+
