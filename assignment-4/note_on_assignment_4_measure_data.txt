@@ -1,0 +1,280 @@
+
+*take a look at run.sh and try tweaking the maxq and delay parameters)
+   and discuss your findings on Piazza. 
+
+*The goals of the exercise are to:
+---------------------------------
+1)Review the dynamics of cwnd and buffer occupancy in a “real” network.
+2)Learn why large router buffers can lead to poor performance in home networks. 
+This problem is often called “Buffer Bloat.”
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@******Experiment with small-queue*****@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+1)At the 1st terminal:
+---------------------
+sudo ./run-minq.sh
+-> it will open  Mininet terminal
+
+2)At the 2nd terminal:
+---------------------
+./monitor.sh small-queue
+
+3) the 1st console (the Mininet terminal)
+---------------------------------------
+h1 ./iperf.sh
+
+4) at the 2nd console terminal
+----------------------------
+After waiting 90-120 seconds, on the monitor terminal, press "enter" to stop monitoring.
+
+5) At 1st console
+-----------------
+Mininet terminal, you should issue the "exit" 
+
+***==>Now, we'll use the captured information 
+and plot the data using the following command (on the monitor terminal): 
+-----------------------------------------------------------------------
+./plot_figures.sh small-queue
+
+* Look at the new image files in the assignment-4 directory. 
+Three are created, but we only are interested in the queue occupancy of the switch and the CWND size for iperf. Compare these two graphs (and discuss on Piazza).
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@******Experiment with large-queue*****@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+*Note: we used a queue size of 20 in small-queue, but this time the queue size will be 100 
+
+1)At the 1st console terminal:
+------------------------------
+sudo ./run.sh
+-> it will open  Mininet terminal
+
+2)At the 2nd terminal:
+---------------------
+./monitor.sh large-queue
+
+3) the 1st console (the Mininet terminal)
+---------------------------------------
+h1 ./iperf.sh
+
+4) at the 2nd console terminal
+----------------------------
+Now wait ~10 minutes, press "enter" to stop monitoring.
+
+5) At 1st console
+-----------------
+Mininet terminal, you should issue the "exit" 
+
+***==>Now, we'll use the captured information  
+./plot_figures.sh large-queue
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Compare these graphs with the graphs we created before. 
+What is different between them? 
+Why do these differences occur? 
+Discuss this on Piazza.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+sudo port install py27-numpy py27-scipy py27-matplotlib py27-ipython +notebook py27-pandas py27-sympy py27-nose
+
+#################################################
+##############      Directions     ##############
+#################################################
+
+1) at 1st console
+----------------
+sudo ./run.sh 
+
+2) To begin, you'll measure how long H2, the end host
+------------------------------------------------------
+mininet> h2 wget http://10.0.0.1 
+
+==> On scratch paper, sketch how you think cwnd evolves over time at H1. 
+Mark multiples of RTT on the x-axis. 
+Don't worry if you are unsure of the behavior, we will be graphing the actual cwnd so make your best guess. 
+
+3) To see how the dynamics of a long flow 
+-----------------------------------------
+we are going to repeat initiate a web request as in step 3 while a “streaming video flow” is running.
+
+*use ping to measure how the delay evolves over time
+mininet> h1 ping -c 100 h2
+
+4) To simulate a long-lived video flow, we are going to set up a long-lived high speed TCP connection instead
+--------------------------------------------
+mininet> h1 ./iperf.sh
+
+*You can see the throughput of TCP flow from H1 to H2 by running:
+---------------------------------------------------------------
+mininet> h2 tail -f ./iperf-recv.txt 
+
+You can quit viewing throughput by pressing CTRL-C
+
+5) Now we can run ping again to see how the long flow has affected our network latency and RTT
+-------------------------------------------
+mininet> h1 ping -c 100 h2
+
+6)Before we observe the effect of the long-lived flow on the short flow, sketch how you think cwnd evolves over time at H1. Remember the long-lived flow has entered the AIMD phase unlike the slow start phase of the web request.
+----------------
+
+7) Now to see how our long-lived iperf flow affects our web page download, download the webpage again - while iperf is running. Make a note of the download time as in step 3. 
+
+mininet> h2 wget http://10.0.0.1
+
+==>Why does the web page take so much longer to download? Discuss this on Piazza.
+
+8) To confirm our understanding in the previous steps
+----------------------------------------------------
+mininet> exit
+sudo ./run.sh
+
+*In 2nd bash terminal, go to assignment-4
+------------------------------
+./monitor.sh experiment-1 
+
+*Now back to mininet termial
+----------------------
+mininet> h1 ./iperf.sh (wait for 70 seconds such that the iperf stream is in steady state for its congestion window…) 
+
+mininet> h2 wget http://10.0.0.1 
+
+*Wait for the wget to complete!
+
+* Then to go 2nd bash terminal, press ENTER to stop
+
+==>The cwnd values are saved in experiment-1_tcpprobe.txt 
+and the buffer occupancy in experiment-1_sw0-qlen.txt.
+
+9) Plot the TCP cwnd and queue occupancy: 
+------------------------------------
+./plot_figures.sh experiment-1
+
+************************************************************
+==>Next we’ll look at two ways to reduce the problem. <==
+*************************************************************
+
+10)The first method to speed up the short lived flow:
+---------------------------------------------------
+-make the router buffer smaller and reduce it from 100 packets to 20 packets
+
+sudo ./run-minq.sh 
+
+*In another terminal:
+---------------------
+./monitor.sh experiment-2
+
+Then we'll repeat the previous iperf and wget steps:
+---------------------------------------------------
+mininet> h1 ./iperf.sh 
+
+*(wait for 70 seconds such that the iperf stream is in steady state for its congestion window…)
+
+mininet> h2 wget http://10.0.0.1
+
+11) Now confirm your sketch by plotting the figures
+-------------------------------------------------
+./plot_figures.sh experiment-2
+
+12) The buffer bloat problem seems to be that packets from the short flow are stuck behind a lot of packets from the long flow. 
+
+*What if we maintain a separate queue for each flow and then put iperf and wget traffic into different queues? 
+For this experiment, we put the iperf and wget/ping packets into separate queues in the Headend router. 
+
+*The scheduler implements fair queueing so that when both queues are busy, each flow will receive half of the bottleneck link rate. 
+
+---------------------------------------------------------------
+*Start Mininet again, but this time we will create two queues:
+ one for each type of traffic
+---------------------------------------------------------------
+sudo ./run-diff.sh 
+
+-----------------------------------------------------------------------------------------
+*Then repeat the following steps that have been tweaked slightly for assignment turn-in:
+-----------------------------------------------------------------------------------------
+mininet> h1 ping -c 10 h2 | tee before-iperf.txt
+mininet> h1 ./iperf.sh 
+mininet> h1 ping -c 10 h2 | tee after-iperf.txt 
+mininet> h2 wget http://10.0.0.1
+
+
+**You should see the ping delay and the wget download time do not change much before and after we start the iperf. 
+The underlying mechanism for these multiple queues is traffic control in Linux
+
+*You'll see multiple tc commands in:
+tc_cmd_diff.sh which setup a filtering mechanism for the iperf traffic. 
+
+
+*For more information on tc take a look at the man page and see this and this documentation: 
+------------------------------------------------------------------------------------------
+man tc
+
+
+13) To complete the assignment submit your queue log file from the small queue experiment:
+experiment-2_sw0-qlen.txt
+experiment-2_sw0-qlen.txt
+after-iperf.txt
+
+
+-@@@@@@@@@@@@@@@@@@@@@ -----How to use the imagemagick------@@@@@@@@@@@@@@@@@@@@@@@@@@
+###########################################
+Note: to combime images using commands
+############################################
+convert -append experiment-1_queue.png experiment-1_tcp_cwnd_iperf.png experiment-1_tcp_cwnd_wget.png out_experient_1.png
+
+
+convert \( experiment-1_queue.png experiment-2_queue.png -append \) \
+\( experiment-1_tcp_cwnd_iperf.png experiment-2_tcp_cwnd_iperf.png -append \) \
+\( experiment-1_tcp_cwnd_wget.png experiment-2_tcp_cwnd_wget.png -append \) \
+ +append amy1_output_experience.png
+
+* Added comments into image
+---------------------------
+convert experiment-1_tcp_cwnd_wget.png -gravity North -pointsize 30 -annotate +0+100 'Amy WGET' temp1.jpg
+
+convert experiment-1_queue.png -gravity North -pointsize 35 -annotate +200+70 'Exp-1-queue' temp1.png
+convert experiment-2_queue.png -gravity North -pointsize 35 -annotate +200+70 'Exp-2-queue' temp2.png
+convert experiment-1_tcp_cwnd_iperf.png -gravity North -pointsize 35 -annotate +200+160 'Exp-1-TCP cwnd' temp3.png
+convert experiment-2_tcp_cwnd_iperf.png -gravity North -pointsize 35 -annotate +200+160 'Exp-2-TCP cwnd smaller buffer' temp4.png
+
+
+convert experiment-1_tcp_cwnd_wget.png -gravity North -pointsize 35 -annotate +150+170 'Exp-1-WGET smaller buffer' temp5.png
+convert experiment-2_tcp_cwnd_wget.png -gravity North -pointsize 35 -annotate +150+170 'Exp-2-WGET smaller buffer' temp6.png
+
+*Add text with color
+-------------------
+convert experiment-1_tcp_cwnd_wget.png -gravity North -pointsize 35 -fill blue -annotate +200+170 'Exp-1-WGET' temp5.png
+convert experiment-2_tcp_cwnd_wget.png -gravity North -pointsize 35 -fill blue -annotate +120+170 'Exp-2-WGET smaller buffer' temp6.png
+ 
+*Now put all 6 images together
+-------------------------
+convert +append temp1.png temp2.png queue_exp.png
+convert +append temp3.png temp4.png tcp_exp.png
+convert +append temp5.png temp6.png wget_exp.png
+
+=> all image 1 image
+-------------------
+convert -append queue_exp.png tcp_exp.png wget_exp.png amy_exp.png
+
+
+
+convert -background '#FFF9E3' xc:none -resize 200x1\! \
+temp1.png -append temp2.png \
+-gravity south \
++append +repage result.png
+
+
+*Horizontally
+------------
+convert +append temp1.png temp2.png horizon.png 
+
+*To stack images vertically
+---------------------------
+convert -append temp1.png temp2.png vertical.png 
+
+
+
+
+
+
+
