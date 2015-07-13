@@ -1,0 +1,110 @@
+How to run unit test
+---------------------
+1. In your VM go to a directory of your choice and clone test script
+2. git clone https://github.com/PicoGeyer/CS-6250-A5_firewall_test.git test
+3. copy testing-topo.py and unit_tests.py to assignment-5 directory
+4. Exit mininet if you have already started it (exit) [terminal#1,assignment-5 directory]
+5. Stop your firewall if already running (ctrl+c) [terminal#2, assignment-5 directory]
+6. Run: sudo python testing-topo.py [terminal#1] and don't press any key yet
+7. Start your fire wall: ./run-firewall.sh my_config.cfg [terminal#2]
+8. Go back to terminal#1 and hit Enter
+9. Wait for the script to complete and see your results 
+
+====================================================
+*How to run manual test
+----------------------
+====================================================
+1) In one terminal, start the topology: sudo python firewall-topo.py
+2) In the second terminal,
+ move over the appropriate files, start the firewall. 
+ You need to specify the config file 
+./run-firewall.sh config-file.cfg
+
+3) Back in the 1st terminal run
+e1 xterm &
+e2 xterm &
+
+
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+case1 ) block traffic e3->w3 at port 3000
+  # block e3 to w3
+        rule = match(ethtype=IPV4, protocol=TCP_PROTO)
+        rule = rule & match(dstport=3000)
+        rule = rule & match(srcip=IPAddr('10.0.0.3'))
+        rule = rule & match(dstip=IPAddr('10.0.0.6'))
+==> Resulted: Good!
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+case2 ) block traffic e3->w3 at both direction port 3000:
+
+@* step1) we need to block e3 to w3, using the same as case1
+--------------------------------------------------
+	#######################################
+ 	# block e3 to w3
+        # When prevent e3 to communicate to w3
+        # we need to set srcip= e3
+	#######################################
+        rule = match(ethtype=IPV4, protocol=TCP_PROTO)
+        rule = rule & match(dstport=3000)
+        rule = rule & match(srcip=IPAddr('10.0.0.3'))
+        rule = rule & match(dstip=IPAddr('10.0.0.6'))
+ 	rules.append(rule) # Now at to rules
+
+@* step2) we need to block w3 to e3:
+---------------------------
+	#######################################
+	#Now also block w3 to e3
+        #To block w3, set srcip=w3
+	#######################################
+        rule = match(ethtype=IPV4, protocol=TCP_PROTO)
+        rule = rule & match(dstport=3000)
+        rule = rule & match(srcip=IPAddr('10.0.0.6'))
+        rule = rule & match(dstip=IPAddr('10.0.0.3'))
+        rules.append(rule)
+
+
+=> Result:Good
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+case3) Allow traffic on both E->W at port 1080
+       and allow W->E at port 1080
+
+        rule = match(ethtype=IPV4, protocol=TCP_PROTO)
+        rule = rule & match(dstport=1080)
+        rule = rule & match(srcport=1080)
+        rules.append(rule)
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+case 4) Block All traffic E<->W at port 1234    
+	#To block all traffic between e<->w at port 1234
+        rule = match(ethtype=IPV4, protocol=TCP_PROTO)
+        rule = rule & match(dstport=1234)      
+        rules.append(rule)
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+case5) Block e1->w1 completely in both direction
+        # To e1<->w1 completely both directtion
+        rule = match(srcmac=EthAddr('00:00:00:00:00:01'))
+        rule = rule & match (dstmac=EthAddr('00:00:00:00:00:04'))
+        rules.append(rule)
+
+** Or combine:
+      rule = match(srcmac=EthAddr('00:00:00:00:00:01'), dstmac=EthAddr('00:00:00:00:00:04'))
+
+Note: don't combine with IPV4 option, it will allow connect
+-----
+rule = match(ethtype=IPV4, protocol=TCP_PROTO)
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+
+
+
+
+
+
+
+
+
+

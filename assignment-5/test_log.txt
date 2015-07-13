@@ -1,0 +1,291 @@
+atran@atran-HP-EliteBook-6930p:~/school/cs6250/projects/cs6250_amy/assignment-5$ sudo python testing-topo.py 
+Starting topology
+Unable to contact the remote controller at 127.0.0.1:6633
+Unit tests to be run next. Make sure your firewall is running, then press a key
+*** Ping: testing ping reachability
+e1 -> e2 e3 X w2 w3 
+e2 -> e1 e3 w1 w2 w3 
+e3 -> e1 e2 w1 w2 w3 
+w1 -> X e2 e3 w2 w3 
+w2 -> e1 e2 e3 w1 w3 
+w3 -> e1 e2 e3 w1 w2 
+*** Results: 6% dropped (28/30 received)
+***********************************************************************************
+TEST: 'Block all traffic in both directions between the East and West on port 1080'
+***********************************************************************************
+Starting server (w1) on 10.0.0.4:1080
+Starting client (e1) connecting to 10.0.0.4:1080
+PASS: Connection refused from client (e1) to server (w1) on port (1080)
+Starting server (w2) on 10.0.0.5:1080
+Starting client (e1) connecting to 10.0.0.5:1080
+PASS: Connection refused from client (e1) to server (w2) on port (1080)
+Starting server (w3) on 10.0.0.6:1080
+Starting client (e1) connecting to 10.0.0.6:1080
+PASS: Connection refused from client (e1) to server (w3) on port (1080)
+Starting server (w1) on 10.0.0.4:1080
+Starting client (e2) connecting to 10.0.0.4:1080
+PASS: Connection refused from client (e2) to server (w1) on port (1080)
+Starting server (w2) on 10.0.0.5:1080
+Starting client (e2) connecting to 10.0.0.5:1080
+PASS: Connection refused from client (e2) to server (w2) on port (1080)
+Starting server (w3) on 10.0.0.6:1080
+Starting client (e2) connecting to 10.0.0.6:1080
+PASS: Connection refused from client (e2) to server (w3) on port (1080)
+Starting server (w1) on 10.0.0.4:1080
+Starting client (e3) connecting to 10.0.0.4:1080
+PASS: Connection refused from client (e3) to server (w1) on port (1080)
+Starting server (w2) on 10.0.0.5:1080
+Starting client (e3) connecting to 10.0.0.5:1080
+PASS: Connection refused from client (e3) to server (w2) on port (1080)
+Starting server (w3) on 10.0.0.6:1080
+Starting client (e3) connecting to 10.0.0.6:1080
+PASS: Connection refused from client (e3) to server (w3) on port (1080)
+Starting server (e1) on 10.0.0.1:1080
+Starting client (w1) connecting to 10.0.0.1:1080
+PASS: Connection refused from client (w1) to server (e1) on port (1080)
+Starting server (e2) on 10.0.0.2:1080
+Starting client (w1) connecting to 10.0.0.2:1080
+PASS: Connection refused from client (w1) to server (e2) on port (1080)
+Starting server (e3) on 10.0.0.3:1080
+Starting client (w1) connecting to 10.0.0.3:1080
+PASS: Connection refused from client (w1) to server (e3) on port (1080)
+Starting server (e1) on 10.0.0.1:1080
+Starting client (w2) connecting to 10.0.0.1:1080
+PASS: Connection refused from client (w2) to server (e1) on port (1080)
+Starting server (e2) on 10.0.0.2:1080
+Starting client (w2) connecting to 10.0.0.2:1080
+PASS: Connection refused from client (w2) to server (e2) on port (1080)
+Starting server (e3) on 10.0.0.3:1080
+Starting client (w2) connecting to 10.0.0.3:1080
+PASS: Connection refused from client (w2) to server (e3) on port (1080)
+Starting server (e1) on 10.0.0.1:1080
+Starting client (w3) connecting to 10.0.0.1:1080
+PASS: Connection refused from client (w3) to server (e1) on port (1080)
+Starting server (e2) on 10.0.0.2:1080
+Starting client (w3) connecting to 10.0.0.2:1080
+PASS: Connection refused from client (w3) to server (e2) on port (1080)
+Starting server (e3) on 10.0.0.3:1080
+Starting client (w3) connecting to 10.0.0.3:1080
+PASS: Connection refused from client (w3) to server (e3) on port (1080)
+PASSED: 'Block all traffic in both directions between the East and West on port 1080'
+***********************************************************************************
+TEST: 'Block e1 from communicating with w1 completely in both directions'
+***********************************************************************************
+Starting server (w1) on 10.0.0.4:3402
+Starting client (e1) connecting to 10.0.0.4:3402
+PASS: Connection refused from client (e1) to server (w1) on port (3402)
+Starting server (w1) on 10.0.0.4:5433
+Starting client (e1) connecting to 10.0.0.4:5433
+PASS: Connection refused from client (e1) to server (w1) on port (5433)
+Starting server (w1) on 10.0.0.4:8522
+Starting client (e1) connecting to 10.0.0.4:8522
+PASS: Connection refused from client (e1) to server (w1) on port (8522)
+Starting server (w1) on 10.0.0.4:1753
+Starting client (e1) connecting to 10.0.0.4:1753
+PASS: Connection refused from client (e1) to server (w1) on port (1753)
+Starting server (w1) on 10.0.0.4:1209
+Starting client (e1) connecting to 10.0.0.4:1209
+PASS: Connection refused from client (e1) to server (w1) on port (1209)
+Starting server (w1) on 10.0.0.4:4652
+Starting client (e1) connecting to 10.0.0.4:4652
+PASS: Connection refused from client (e1) to server (w1) on port (4652)
+Starting server (w1) on 10.0.0.4:2710
+Starting client (e1) connecting to 10.0.0.4:2710
+PASS: Connection refused from client (e1) to server (w1) on port (2710)
+Starting server (w1) on 10.0.0.4:4978
+Starting client (e1) connecting to 10.0.0.4:4978
+PASS: Connection refused from client (e1) to server (w1) on port (4978)
+Starting server (w1) on 10.0.0.4:5678
+Starting client (e1) connecting to 10.0.0.4:5678
+PASS: Connection refused from client (e1) to server (w1) on port (5678)
+Starting server (w1) on 10.0.0.4:8241
+Starting client (e1) connecting to 10.0.0.4:8241
+PASS: Connection refused from client (e1) to server (w1) on port (8241)
+Starting server (w1) on 10.0.0.4:8274
+Starting client (e1) connecting to 10.0.0.4:8274
+PASS: Connection refused from client (e1) to server (w1) on port (8274)
+Starting server (w1) on 10.0.0.4:2791
+Starting client (e1) connecting to 10.0.0.4:2791
+PASS: Connection refused from client (e1) to server (w1) on port (2791)
+Starting server (w1) on 10.0.0.4:1940
+Starting client (e1) connecting to 10.0.0.4:1940
+PASS: Connection refused from client (e1) to server (w1) on port (1940)
+Starting server (w1) on 10.0.0.4:5505
+Starting client (e1) connecting to 10.0.0.4:5505
+PASS: Connection refused from client (e1) to server (w1) on port (5505)
+Starting server (w1) on 10.0.0.4:6546
+Starting client (e1) connecting to 10.0.0.4:6546
+PASS: Connection refused from client (e1) to server (w1) on port (6546)
+Starting server (w1) on 10.0.0.4:5470
+Starting client (e1) connecting to 10.0.0.4:5470
+PASS: Connection refused from client (e1) to server (w1) on port (5470)
+Starting server (w1) on 10.0.0.4:1105
+Starting client (e1) connecting to 10.0.0.4:1105
+PASS: Connection refused from client (e1) to server (w1) on port (1105)
+Starting server (w1) on 10.0.0.4:7251
+Starting client (e1) connecting to 10.0.0.4:7251
+PASS: Connection refused from client (e1) to server (w1) on port (7251)
+Starting server (w1) on 10.0.0.4:2180
+Starting client (e1) connecting to 10.0.0.4:2180
+PASS: Connection refused from client (e1) to server (w1) on port (2180)
+Starting server (w1) on 10.0.0.4:2491
+Starting client (e1) connecting to 10.0.0.4:2491
+PASS: Connection refused from client (e1) to server (w1) on port (2491)
+Starting server (e1) on 10.0.0.1:3402
+Starting client (w1) connecting to 10.0.0.1:3402
+PASS: Connection refused from client (w1) to server (e1) on port (3402)
+Starting server (e1) on 10.0.0.1:5433
+Starting client (w1) connecting to 10.0.0.1:5433
+PASS: Connection refused from client (w1) to server (e1) on port (5433)
+Starting server (e1) on 10.0.0.1:8522
+Starting client (w1) connecting to 10.0.0.1:8522
+PASS: Connection refused from client (w1) to server (e1) on port (8522)
+Starting server (e1) on 10.0.0.1:1753
+Starting client (w1) connecting to 10.0.0.1:1753
+PASS: Connection refused from client (w1) to server (e1) on port (1753)
+Starting server (e1) on 10.0.0.1:1209
+Starting client (w1) connecting to 10.0.0.1:1209
+PASS: Connection refused from client (w1) to server (e1) on port (1209)
+Starting server (e1) on 10.0.0.1:4652
+Starting client (w1) connecting to 10.0.0.1:4652
+PASS: Connection refused from client (w1) to server (e1) on port (4652)
+Starting server (e1) on 10.0.0.1:2710
+Starting client (w1) connecting to 10.0.0.1:2710
+PASS: Connection refused from client (w1) to server (e1) on port (2710)
+Starting server (e1) on 10.0.0.1:4978
+Starting client (w1) connecting to 10.0.0.1:4978
+PASS: Connection refused from client (w1) to server (e1) on port (4978)
+Starting server (e1) on 10.0.0.1:5678
+Starting client (w1) connecting to 10.0.0.1:5678
+PASS: Connection refused from client (w1) to server (e1) on port (5678)
+Starting server (e1) on 10.0.0.1:8241
+Starting client (w1) connecting to 10.0.0.1:8241
+PASS: Connection refused from client (w1) to server (e1) on port (8241)
+Starting server (e1) on 10.0.0.1:8274
+Starting client (w1) connecting to 10.0.0.1:8274
+PASS: Connection refused from client (w1) to server (e1) on port (8274)
+Starting server (e1) on 10.0.0.1:2791
+Starting client (w1) connecting to 10.0.0.1:2791
+PASS: Connection refused from client (w1) to server (e1) on port (2791)
+Starting server (e1) on 10.0.0.1:1940
+Starting client (w1) connecting to 10.0.0.1:1940
+PASS: Connection refused from client (w1) to server (e1) on port (1940)
+Starting server (e1) on 10.0.0.1:5505
+Starting client (w1) connecting to 10.0.0.1:5505
+PASS: Connection refused from client (w1) to server (e1) on port (5505)
+Starting server (e1) on 10.0.0.1:6546
+Starting client (w1) connecting to 10.0.0.1:6546
+PASS: Connection refused from client (w1) to server (e1) on port (6546)
+Starting server (e1) on 10.0.0.1:5470
+Starting client (w1) connecting to 10.0.0.1:5470
+PASS: Connection refused from client (w1) to server (e1) on port (5470)
+Starting server (e1) on 10.0.0.1:1105
+Starting client (w1) connecting to 10.0.0.1:1105
+PASS: Connection refused from client (w1) to server (e1) on port (1105)
+Starting server (e1) on 10.0.0.1:7251
+Starting client (w1) connecting to 10.0.0.1:7251
+PASS: Connection refused from client (w1) to server (e1) on port (7251)
+Starting server (e1) on 10.0.0.1:2180
+Starting client (w1) connecting to 10.0.0.1:2180
+PASS: Connection refused from client (w1) to server (e1) on port (2180)
+Starting server (e1) on 10.0.0.1:2491
+Starting client (w1) connecting to 10.0.0.1:2491
+PASS: Connection refused from client (w1) to server (e1) on port (2491)
+PASSED: 'Block e1 from communicating with w1 completely in both directions'
+***********************************************************************************
+TEST: 'Allow all traffic within the East or West sites to port 1234'
+***********************************************************************************
+Starting server (e1) on 10.0.0.1:1234
+Starting client (e2) connecting to 10.0.0.1:1234
+PASS: Connection established from client (e2) to server (e1) on port (1234)
+Starting server (e1) on 10.0.0.1:1234
+Starting client (e3) connecting to 10.0.0.1:1234
+PASS: Connection established from client (e3) to server (e1) on port (1234)
+Starting server (e2) on 10.0.0.2:1234
+Starting client (e1) connecting to 10.0.0.2:1234
+PASS: Connection established from client (e1) to server (e2) on port (1234)
+Starting server (e2) on 10.0.0.2:1234
+Starting client (e3) connecting to 10.0.0.2:1234
+PASS: Connection established from client (e3) to server (e2) on port (1234)
+Starting server (e3) on 10.0.0.3:1234
+Starting client (e1) connecting to 10.0.0.3:1234
+PASS: Connection established from client (e1) to server (e3) on port (1234)
+Starting server (e3) on 10.0.0.3:1234
+Starting client (e2) connecting to 10.0.0.3:1234
+PASS: Connection established from client (e2) to server (e3) on port (1234)
+Starting server (w1) on 10.0.0.4:1234
+Starting client (w2) connecting to 10.0.0.4:1234
+PASS: Connection established from client (w2) to server (w1) on port (1234)
+Starting server (w1) on 10.0.0.4:1234
+Starting client (w3) connecting to 10.0.0.4:1234
+PASS: Connection established from client (w3) to server (w1) on port (1234)
+Starting server (w2) on 10.0.0.5:1234
+Starting client (w1) connecting to 10.0.0.5:1234
+PASS: Connection established from client (w1) to server (w2) on port (1234)
+Starting server (w2) on 10.0.0.5:1234
+Starting client (w3) connecting to 10.0.0.5:1234
+PASS: Connection established from client (w3) to server (w2) on port (1234)
+Starting server (w3) on 10.0.0.6:1234
+Starting client (w1) connecting to 10.0.0.6:1234
+PASS: Connection established from client (w1) to server (w3) on port (1234)
+Starting server (w3) on 10.0.0.6:1234
+Starting client (w2) connecting to 10.0.0.6:1234
+PASS: Connection established from client (w2) to server (w3) on port (1234)
+PASSED: 'Allow all traffic within the East or West sites to port 1080'
+***********************************************************************************
+TEST: 'Block e2 from communicating with w2 over ports 2000-2004 in both directions'
+***********************************************************************************
+Starting server (w2) on 10.0.0.5:2000
+Starting client (e2) connecting to 10.0.0.5:2000
+PASS: Connection refused from client (e2) to server (w2) on port (2000)
+Starting server (w2) on 10.0.0.5:2001
+Starting client (e2) connecting to 10.0.0.5:2001
+PASS: Connection refused from client (e2) to server (w2) on port (2001)
+Starting server (w2) on 10.0.0.5:2002
+Starting client (e2) connecting to 10.0.0.5:2002
+PASS: Connection refused from client (e2) to server (w2) on port (2002)
+Starting server (w2) on 10.0.0.5:2003
+Starting client (e2) connecting to 10.0.0.5:2003
+PASS: Connection refused from client (e2) to server (w2) on port (2003)
+Starting server (w2) on 10.0.0.5:2004
+Starting client (e2) connecting to 10.0.0.5:2004
+PASS: Connection refused from client (e2) to server (w2) on port (2004)
+Starting server (e2) on 10.0.0.2:2000
+Starting client (w2) connecting to 10.0.0.2:2000
+PASS: Connection refused from client (w2) to server (e2) on port (2000)
+Starting server (e2) on 10.0.0.2:2001
+Starting client (w2) connecting to 10.0.0.2:2001
+PASS: Connection refused from client (w2) to server (e2) on port (2001)
+Starting server (e2) on 10.0.0.2:2002
+Starting client (w2) connecting to 10.0.0.2:2002
+PASS: Connection refused from client (w2) to server (e2) on port (2002)
+Starting server (e2) on 10.0.0.2:2003
+Starting client (w2) connecting to 10.0.0.2:2003
+PASS: Connection refused from client (w2) to server (e2) on port (2003)
+Starting server (e2) on 10.0.0.2:2004
+Starting client (w2) connecting to 10.0.0.2:2004
+PASS: Connection refused from client (w2) to server (e2) on port (2004)
+PASSED: 'Block e2 from communicating with w2 over ports 2000-2004 in both directions'
+***********************************************************************************
+TEST: 'Block e3 from communicating with w3 over ports 3000-3002'
+***********************************************************************************
+Starting server (w3) on 10.0.0.6:3000
+Starting client (e3) connecting to 10.0.0.6:3000
+PASS: Connection refused from client (e3) to server (w3) on port (3000)
+Starting server (w3) on 10.0.0.6:3001
+Starting client (e3) connecting to 10.0.0.6:3001
+PASS: Connection refused from client (e3) to server (w3) on port (3001)
+Starting server (w3) on 10.0.0.6:3002
+Starting client (e3) connecting to 10.0.0.6:3002
+PASS: Connection refused from client (e3) to server (w3) on port (3002)
+Starting server (e3) on 10.0.0.3:3000
+Starting client (w3) connecting to 10.0.0.3:3000
+PASS: Connection established from client (w3) to server (e3) on port (3000)
+Starting server (e3) on 10.0.0.3:3001
+Starting client (w3) connecting to 10.0.0.3:3001
+PASS: Connection established from client (w3) to server (e3) on port (3001)
+Starting server (e3) on 10.0.0.3:3002
+Starting client (w3) connecting to 10.0.0.3:3002
+PASS: Connection established from client (w3) to server (e3) on port (3002)
+PASSED: 'Block e3 from communicating with w3 over ports 3000-3002'
+mininet> 
