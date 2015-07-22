@@ -1,0 +1,64 @@
+$TTL	86400 ; 24 hours could have been written as 24h or 1d
+; $TTL used for all RRs without explicit TTL value
+$ORIGIN cs6250.com.
+@  1D  IN  SOA ns1.cs6250.com. hostmaster.cs6250.com. (
+			      2002022401 ; serial
+			      3H ; refresh
+			      15 ; retry
+			      1w ; expire
+			      3h ; minimum
+			     )
+       IN  NS     ns1.cs6250.com. ; in the domain
+       IN  NS     ns2.cs6250.com. ; in the domain
+       IN  NS     ns3.cs6250.com. ; in the domain
+       IN  NS     ns4.cs6250.com. ; in the domain
+       IN  NS     ns5.cs6250.com. ; in the domain
+       IN  NS     ns6.cs6250.com. ; in the domain
+       IN  NS     ns7.cs6250.com. ; in the domain
+       IN  NS     ns8.cs6250.com. ; in the domain
+;       IN  NS     ns9.cs6250.com. ; in the domain
+;       IN  NS     ns10.cs6250.com. ; in the domain
+;       IN  NS     ns11.cs6250.com. ; in the domain
+;       IN  NS     ns12.cs6250.com. ; in the domain
+;       IN  NS     ns13.cs6250.com. ; in the domain
+;       IN  NS     ns14.cs6250.com. ; in the domain
+;       IN  NS     ns15.cs6250.com. ; in the domain
+;       IN  NS     ns16.cs6250.com. ; in the domain
+       IN  MX  10 mail.cs6250.com. ; external mail provider
+; server host definitions
+;ftp    IN  CNAME  www.cs6250.com.
+www    IN  A      10.0.0.2
+www    IN  A      10.0.0.3
+www    IN  A      10.0.0.4
+www    IN  A      10.0.0.5
+www    IN  A      10.0.0.6
+www    IN  A      10.0.0.7
+www    IN  A      10.0.0.8
+www    IN  A      10.0.0.9
+www    IN  A      10.0.0.10
+www    IN  A      10.0.0.11
+www    IN  A      10.0.0.12
+www    IN  A      10.0.0.13
+;www    IN  A      10.0.0.14
+;www    IN  A      10.0.0.15
+;www    IN  A      10.0.0.16
+;www    IN  A      10.0.0.17
+;mail   IN  A      10.0.0.97
+;mail   IN  A      10.0.0.98
+;mail   IN  A      10.0.0.99
+ns1    IN  A      10.0.0.101
+ns2    IN  A      10.0.0.102
+ns3    IN  A      10.0.0.103
+ns4    IN  A      10.0.0.104
+ns5    IN  A      10.0.0.105
+ns6    IN  A      10.0.0.106
+ns7    IN  A      10.0.0.107
+ns8    IN  A      10.0.0.108
+;ns9    IN  A      10.0.0.109
+;ns10   IN  A      10.0.0.110
+;ns11   IN  A      10.0.0.111
+;ns12   IN  A      10.0.0.112
+;ns13   IN  A      10.0.0.113
+;ns14   IN  A      10.0.0.114
+;ns15   IN  A      10.0.0.115
+;ns16   IN  A      10.0.0.116
