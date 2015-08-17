@@ -10,6 +10,8 @@ import string
 import struct
 import random
 import sys
+import time
+
 from impacket import ImpactPacket
 
 
@@ -47,6 +49,7 @@ def main():
         request_msg = create_dns_request("www.cs6250.com")
 
         while True:
+            time.sleep (0.1)
             # Replace Transaction ID on each retransmission (so they look unique)
             request_msg[0] = struct.pack('!BB', random.randint(0, 255), random.randint(0, 255))
             udp.contains(ImpactPacket.Data("".join(request_msg)))
