@@ -1,0 +1,16 @@
+
+*Unit tests for dns_firewall.py
+------------------------------
+ 1)Test that requests (as opposed to responses) are permitted.
+ 2)Test that a response to a prior request is permitted, but only once ( prevent malicious repeat send of legitimate responses ).
+ 3)Test that a response without a prior request is not permitted.
+ 4) Test that two valid responses are allowed regardless of the order in which they arrive.
+ 5) Test that the same request / response are allowed repeatedly ( supports refetch of data once TTL expires or in case of lost response ).
+ 6) Test that a valid response will be accepted despite being preceded by invalid responses.
+
+*To run unitest
+----------------
+PYTHONPATH=$HOME/pyretic/pyretic/vendor/ryu: python test_dns_firewall.py
+
+
+

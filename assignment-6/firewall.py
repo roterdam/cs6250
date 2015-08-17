@@ -33,13 +33,13 @@ class Firewall(DynamicPolicy):
     def set_policy(self):
         # This is the default policy for the firwall switch. Non-DNS packets
         # get forwarded automatically, DNS packets go through the student code.
-        non_dns_traffic = ~match(srcport = 53) >> ~match(dstport = 53) >> flood()
+        non_dns_traffic = ~match(ethtype=2048, protocol=17, srcport = 53) >> ~match(ethtype=2048, protocol=17, dstport = 53) >> flood()
         
         # Getting all DNS traffic.
         dnspkts = packets(None, ['srcmac'])
         dnspkts.register_callback(self.dns_callback)
-        dns_inbound = match(srcport = 53) >> dnspkts
-        dns_outbound = match(dstport = 53) >> dnspkts
+        dns_inbound = match(ethtype=2048, protocol=17, srcport = 53) >> dnspkts
+        dns_outbound = match(ethtype=2048, protocol=17, dstport = 53) >> dnspkts
     
         # Compose the subpolicies for Non-DNS traffic and for capturing the 
         # DNS traffic and forwarding to the appropriate locations
